@@ -1,0 +1,161 @@
+.header_section h1 {
+    font-size: 3rem;
+    opacity: .6;
+    margin: 90px 0 20px 0;
+    }
+    .header_section p {
+        font-size: 1.2rem;
+        opacity: .6;
+        margin: 10px 0 60px 0;
+        }
+        .header_section img{
+            width: 230px;
+            height: 230px;
+            border:2px soli d rgb(0,0,0,.1);
+            padding: 2px;
+            border-radius: 50%;
+            margin: 50px 0 ;
+        }
+        .hero_section {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+        .hero_section div{
+            padding: 120px 0 !important;
+            margin: 0    px 150px;
+        }
+        .hero_section h2{
+            margin: 20px;
+            font-size: 3rem;
+        }
+        .hero_section  p{
+            width:60%;
+            position: relative;
+            left:50%;
+            transform:translate(-50%);
+            text-align: justify;
+    
+        }
+        .hero_section div{
+            margin: 0px 60px;
+            background-color: #a3a3f6;
+        }
+        .card-header{
+            place-items:center;
+            display:grid;
+        }
+        .card-header i{
+            margin-bottom: 10px;
+          font-size: 2rem;
+          padding: 10px;
+          border:1px solid rgb(0,0,0,.1) ;
+          border-radius:  50%;
+        }
+        .card_state{
+            margin-left: 25px!important ;
+            margin-right: 25px !important;
+            display: flex;
+            justify-content: center;
+            position: relative;
+            top:-160px;
+    
+        }
+       
+    .card-header img{
+        width:130px ;
+        height: 130px;
+        border-radius: 50%;
+        padding: 5px;
+        border: 1px solid rgb(0,0,0,.1);
+    }
+    .box3 p{
+        width:92%;
+        position: relative;
+        left:50%;
+        transform:translate(-50%);
+        text-align: justify;
+    }
+    .service_state{
+        margin-left: 25px!important ;
+        margin-right: 25px !important;
+    }
+    .service h2{
+        margin-top: 70px;
+        margin-bottom: 10px;
+    }
+    .contact_us{
+      width: 100%;
+       
+    }
+    .contact_us form{
+        width:50%;
+        position:relative;
+        left: 50%;
+        transform: translate(-50%);
+    }
+    
+    .footer{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        margin: 30px 30px 0px 30px;
+    }
+    .footer h3{
+        margin-top: 30px;
+        margin-bottom: 40px;
+    }
+    .footer .social_icons {
+        display: flex;
+        margin-bottom:30 px;
+      
+    }
+    
+    .footer .social_icons a {
+        width: 50px;
+        height: 50px;
+        border: 1px solid rgb(0,0,0,.1);
+         border-radius: 50%; 
+        place-items:center;
+        display :grid;
+        text-decoration: none;
+        transition-duration: 100ms;
+        margin:0 10px
+    }
+    /* .footer .coding .footer_link{
+        width: 10px;
+        height: 10px ;
+        border-radius: 50% ;
+        border: 1px solid rgb(0,0,0,.1) ;
+    } */
+     /* .footer_link {
+        width: 10px !important;
+        height: 10px !important;
+        border-radius: 50% !important;
+        border: 1px solid rgb(0,0,0,.1) !important;
+    } */
+    
+    .footer .social_icons a:hover {
+        transform:scale(1.1);
+        background-color:rgb(242, 242, 242);
+    }
+    nav{
+        position:sticky !important;
+        top:0;
+        z-index:99;
+        backdrop-filter: blur(5px);
+    }
+    .user_icon{
+        width: 30px ;
+        height: 30px;
+        border:1px solid rgb(0,0,0,.1);
+        border-radius: 50%;
+        padding: 5px;
+    }
+    @media(max-width:786px){
+        .contact_us form{
+            width:90%
+        }
+    }
