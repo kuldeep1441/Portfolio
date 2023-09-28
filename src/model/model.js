@@ -8,7 +8,7 @@ const mongoose=require('mongoose');
     email:{
         type:String,
         require:true,
-        unique:true,
+        unique:false,
     },
     message:{
         type:String,
