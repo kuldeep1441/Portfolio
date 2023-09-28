@@ -39,36 +39,6 @@ app.post('/contactdata',async(req,res)=>{
         res.status(401).send(error);
     }
 })
-app.post('/useraccount',async(req,res)=>{
-    try {  
-         const username=req.body.name;
-        const email=req.body.email;
-        const phone=req.body.phone;
-        const password=req.body.password;
-        const cpassword=req.body.cpassword;
-        const signupSave=new collection2({
-            name:username,
-            email:email,
-            phone:phone,
-            password:password,
-            cpassword:cpassword
-         });
-         if(password===cpassword){
-            const savesignupdata=await signupSave.save();
-            if(savesignupdata){
-               res.render('home',{username,InLogged:true});
-            }
-         }
-         else{
-            res.send("password are not matching")
-            // alert("password are not matching");
-         }
-        
-        
-    } catch (error) {
-        res.status(401).send(error);
-    }
-})
 app.listen(port,()=>{
     console.log(`you are on port ${port}`);
 })
