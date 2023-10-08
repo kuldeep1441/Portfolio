@@ -6,9 +6,9 @@ const hbs=require('hbs')
 const port=process.env.PORT || 3000;
 const static_path=path.join(__dirname,'../views');
 const partials_path=path.join(__dirname,'../views/partials');
-const model=require('./model/model');
-const collection1=model.collection1;
-const collection2=model.collection2;
+const collection1=require('./model/model');
+// const collection1=model.collection1;
+// const collection2=model.collection2;
 require('./database/config');
 app.set('view engine','hbs');
 app.set('views',static_path);
@@ -16,7 +16,7 @@ app.use('/public',express.static(path.join(__dirname,'../public')));
 app.use('/css',express.static(path.join(__dirname,'../node_modules/bootstrap/dist/css')));
 app.use('/js',express.static(path.join(__dirname,'../node_modules/bootstrap/dist/js')));
 hbs.registerPartials(partials_path);
-app.use(express.urlencoded({extended:false}))
+// app.use(express.urlencoded({extended:false}))
 app.get('/',(req,res)=>{
     res.render('home');
 
