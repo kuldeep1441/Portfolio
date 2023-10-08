@@ -16,4 +16,6 @@ const mongoose=require('mongoose');
     }
  })
  const contactuserData=new mongoose.model("contactusdata",schemaModel1);
- module.exports=contactuserData;
+ module.exports={
+    collection1:contactuserData
+ }
