@@ -23,14 +23,19 @@ const FullProjectModal = (props: any) => {
                 <Text className="!text-justify !text-lg sm-mx:!text-base xs-mx:!text-xs"  c="dimmed">
                     {props.desc}
                 </Text>
-                <Group justify="space-between" mt="md" mb={3} >
-                    <a href={props.github} target="_blank" className="!w-[48%] sm-mx:!w-[46%]"><Button variant="outline" size={btn} color="#64FFDA" fullWidth  radius="md">
-                        View Code
-                    </Button>
+                <Group justify={props.live ? "space-between" : "center"} mt="md" mb={3} >
+                    <a href={props.github} target="_blank" rel="noopener noreferrer" className={props.live ? "!w-[48%] sm-mx:!w-[46%]" : "!w-full"}>
+                        <Button variant="outline" size={btn} color="#64FFDA" fullWidth radius="md">
+                            View Code
+                        </Button>
                     </a>
-                    <a href={props.link} target="_blank" className="!w-[48%] "><Button size={btn} color="#64FFDA" className="!text-bgColor" fullWidth radius="md">
-                        View Live App
-                    </Button></a>
+                    {props.live && (
+                        <a href={props.link} target="_blank" rel="noopener noreferrer" className="!w-[48%] sm-mx:!w-[46%]">
+                            <Button size={btn} color="#64FFDA" className="!text-bgColor" fullWidth radius="md">
+                                View Live App
+                            </Button>
+                        </a>
+                    )}
                 </Group>
             </Modal.Body>
         </Modal.Content>

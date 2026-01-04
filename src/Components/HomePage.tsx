@@ -2,13 +2,12 @@ import { useEffect, useState } from "react";
 import About from "./About";
 import Contact from "./Contact";
 import Experience from "./Experience";
+import Education from "./Education";
 import Footer from "./Footer";
 import Header from "./Header"
 import { Loader } from "./Loader";
-import Mail from "./Mail";
 import Projects from "./Projects";
 import Skills from "./Skills";
-import Social from "./Social";
 import { Toaster } from "react-hot-toast";
 
 const HomePage = () => {
@@ -23,13 +22,12 @@ const HomePage = () => {
     <Toaster/>
         <Header />
         <About />
+        <Education />
         <Experience />
         <Skills />
         <Projects />
         <Contact />
         <Footer/>
-        <Mail />
-        <Social />
         </>:
         <Loader/>}
     </div>

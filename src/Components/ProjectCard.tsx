@@ -12,7 +12,7 @@ const ProjectCard = (props: any) => {
     return <div className="w-[32%] lg-mx:w-[46%] md-mx:w-[48%] sm-mx:w-[90%] xs-mx:w-full" data-aos="fade-up" data-aos-duration="800"><Card onClick={open}  className="!bg-bgColor cursor-pointer transition-transform duration-300 ease-in-out hover:!scale-[1.02] mb-5 hover:!shadow-[0_0_10px_1px_#64FFDA80] xs-mx:!shadow-[0_0_10px_1px_#64FFDA80] !border-primaryColor border-2"  shadow="lg" padding="sm" radius="lg" withBorder>
         <Card.Section className="p-3">
             <Image
-                className="!rounded-xl !shadow-[0_0_5px_0_#64FFDA]"
+                className="!rounded-xl !shadow-[0_0_5px_0_#64FFDA] !h-[200px] !object-cover !w-full"
                 src={`${process.env.PUBLIC_URL}/${props.image}`}
                 alt={props.image}
             />
