@@ -1,16 +1,22 @@
-
 import { socialLinks } from "../User";
 
-const Social=()=>{
-    const socialIcons=socialLinks.map((socialLink, index)=>{
-        return <a   key={index} href={`${socialLink.link}`} target="_blank"  className="font-mono text-lg  hover:text-primaryColor hover:-translate-x-1 transition transform duration-300 ease-in-out">
-       <div data-aos="fade-up-left" data-aos-duration="800" > <socialLink.icon stroke={1.5} className="-rotate-90" size={25} /></div>
-    </a>
-    })
-
-    return <div  className="flex md-mx:hidden text-textColor items-center gap-8 fixed bottom-32 -left-48 rotate-90 " >
-        {socialIcons}
-        <hr className="border w-40 rounded-full  bg-textColor border-textColor"/>
+const Social = () => (
+    <div className="flex md-mx:hidden flex-col items-center gap-4 fixed bottom-0 left-8 xl-mx:left-4">
+        {socialLinks.map((s, i) => (
+            <a
+                key={i}
+                href={s.link}
+                target="_blank"
+                rel="noreferrer"
+                data-aos="fade-up"
+                data-aos-delay={i * 80}
+                className="text-textColor hover:text-primaryColor hover:-translate-y-0.5 transition-all duration-200"
+            >
+                <s.icon stroke={1.5} size={19} />
+            </a>
+        ))}
+        <div className="w-px h-20 bg-gradient-to-b from-[#94A3B8] to-transparent mt-1" />
     </div>
-}
+);
+
 export default Social;

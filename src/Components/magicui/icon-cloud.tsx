@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
-import { useTheme } from "next-themes";
 import {
   Cloud,
   fetchSimpleIcons,
@@ -33,20 +32,19 @@ export const cloudProps: Omit<ICloud, "children"> = {
     outlineColour: "#0000",
     maxSpeed: 0.07,
     minSpeed: 0.05,
-    // dragControl: false,
   },
 };
 
-export const renderCustomIcon = (icon: SimpleIcon, theme: string) => {
-  const bgHex = theme === "light" ? "#f3f2ef" : "#080510";
-  const fallbackHex = theme === "light" ? "#6e6e73" : "#ffffff";
-  const minContrastRatio = theme === "dark" ? 2 : 1.2;
+// Hardcoded dark theme — no next-themes provider needed
+const BG_HEX = "#0F172A";
+const FALLBACK_HEX = "#38BDF8";
 
-  return renderSimpleIcon({
+export const renderCustomIcon = (icon: SimpleIcon) =>
+  renderSimpleIcon({
     icon,
-    bgHex,
-    fallbackHex,
-    minContrastRatio,
+    bgHex: BG_HEX,
+    fallbackHex: FALLBACK_HEX,
+    minContrastRatio: 2,
     size: 50,
     aProps: {
       href: undefined,
@@ -55,7 +53,6 @@ export const renderCustomIcon = (icon: SimpleIcon, theme: string) => {
       onClick: (e: any) => e.preventDefault(),
     },
   });
-};
 
 export type DynamicCloudProps = {
   iconSlugs: string[];
@@ -65,7 +62,6 @@ type IconData = Awaited<ReturnType<typeof fetchSimpleIcons>>;
 
 export default function IconCloud({ iconSlugs }: DynamicCloudProps) {
   const [data, setData] = useState<IconData | null>(null);
-  const { theme } = useTheme();
 
   useEffect(() => {
     fetchSimpleIcons({ slugs: iconSlugs }).then(setData);
@@ -73,16 +69,13 @@ export default function IconCloud({ iconSlugs }: DynamicCloudProps) {
 
   const renderedIcons = useMemo(() => {
     if (!data) return null;
-
-    return Object.values(data.simpleIcons).map((icon) =>
-      renderCustomIcon(icon, theme || "light"),
-    );
-  }, [data, theme]);
+    return Object.values(data.simpleIcons).map((icon) => renderCustomIcon(icon));
+  }, [data]);
 
   return (
     // @ts-ignore
     <Cloud {...cloudProps}>
-            // @ts-ignore
+      {/* @ts-ignore */}
       <>{renderedIcons}</>
     </Cloud>
   );

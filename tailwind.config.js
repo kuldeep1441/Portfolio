@@ -6,18 +6,29 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        bgColor: "#112240",
-        primaryColor: "#64FFDA",
-        textColor: "#8892B0"
+        bgColor: "#0F172A",
+        primaryColor: "#38BDF8",
+        accentColor: "#14B8A6",
+        textColor: "#94A3B8",
+        cardBg: "#1E293B",
+      },
+      fontFamily: {
+        sans: ['"Inter"', 'system-ui', 'sans-serif'],
+        space: ['"Space Grotesk"', 'system-ui', 'sans-serif'],
+        mono: ['"JetBrains Mono"', '"Fira Code"', 'monospace'],
       },
       animation: {
-        backgroundPositionSpin:
-          "background-position-spin 3000ms infinite alternate",
+        backgroundPositionSpin: "background-position-spin 3000ms infinite alternate",
+        shimmer: "shimmer 2.5s linear infinite",
       },
       keyframes: {
         "background-position-spin": {
           "0%": { backgroundPosition: "top center" },
           "100%": { backgroundPosition: "bottom center" },
+        },
+        shimmer: {
+          "0%": { backgroundPosition: "200% 0" },
+          "100%": { backgroundPosition: "-200% 0" },
         },
       },
     },
@@ -30,7 +41,6 @@ module.exports = {
       'lg': '1024px',
       'xl': '1280px',
       '2xl': '1536px',
-
 
       '2xl-mx': { 'max': '1535px' },
       'xl-mx': { 'max': '1279px' },

@@ -1,40 +1,79 @@
-import { Badge, Button, Group, Image, Indicator, Modal, ScrollArea, Text, useMatches } from "@mantine/core";
+import { Badge, Indicator, Modal, ScrollArea } from "@mantine/core";
+import { IconBrandGithub, IconExternalLink, IconLock } from "@tabler/icons-react";
 
-const FullProjectModal = (props: any) => {
-    const download=useMatches({xs:"xs", md:"sm", lg:"md", bs:"lg"});
-    const techno=useMatches({xs:"md", sm:"md", md:"lg", bs:"xl"});
-    const btn =useMatches({xs:'xs',sm:'sm',md:'md',lg:'lg'});
-    return <Modal.Root scrollAreaComponent={ScrollArea.Autosize} size="auto" centered className=" font-mono" opened={props.opened} onClose={props.close}>
-        <Modal.Overlay className="!backdrop-opacity-85 blur-sm" />
-        <Modal.Content className="!rounded-3xl">
-            <Modal.Header className="!bg-bgColor xs-mx:!p-2  !border-primaryColor  !border-2 !border-b-0 !rounded-tl-3xl !rounded-tr-3xl">
-                <Modal.Title data-autofocus className="!text-4xl sm-mx:!text-3xl xs-mx:!text-2xl xsm-mx:!text-xl text-white flex gap-3 xs-mx:gap-1 items-center !font-bold">{props.title}{props.live === true && <Badge className="flex items-center gap-1" size={download} variant="outline" color="red" rightSection={<Indicator color="red" position="middle-end" size={10} processing></Indicator>} >Live</Badge>}</Modal.Title>
-                <Modal.CloseButton size="md" iconSize="30px" className="!bg-bgColor !text-red-500" />
+const FullProjectModal = (props: any) => (
+    <Modal.Root scrollAreaComponent={ScrollArea.Autosize} size="auto" centered opened={props.opened} onClose={props.close}>
+        <Modal.Overlay className="!backdrop-opacity-80 blur-sm" />
+        <Modal.Content className="!rounded-2xl !overflow-hidden">
+            <Modal.Header className="!bg-cardBg !border-b !border-[#38BDF818] !px-6 !py-4">
+                <Modal.Title data-autofocus className="!text-2xl sm-mx:!text-xl !font-bold !text-white !font-space flex items-center gap-2">
+                    {props.title}
+                    {props.live && (
+                        <Badge size="sm" variant="outline" color="red"
+                            rightSection={<Indicator color="red" position="middle-end" size={7} processing />}>
+                            Live
+                        </Badge>
+                    )}
+                </Modal.Title>
+                <Modal.CloseButton size="sm" className="!bg-transparent !text-textColor hover:!text-white" />
             </Modal.Header>
-            <Modal.Body className="!bg-bgColor xs-mx:!p-2 !pt-2 !border-primaryColor  !border-2 !border-t-0 !rounded-bl-3xl !rounded-br-3xl">
-                <Image
-                    className="!rounded-xl !shadow-[0_0_5px_0_#64FFDA]"
+
+            <Modal.Body className="!bg-cardBg !p-6 sm-mx:!p-4">
+                <img
                     src={`${process.env.PUBLIC_URL}/${props.image}`}
-                    alt={props.image}
+                    alt={props.title}
+                    className="w-full rounded-xl border border-[#38BDF815] mb-5"
                 />
-                <div className="flex flex-wrap gap-3 xs-mx:gap-2 my-3">
-                    {props.technologies.map((tech: string, index: number) => <Badge key={index} size={techno} variant="light" color="#64FFDA">{tech}</Badge>)}
+
+                {/* Tech badges */}
+                <div className="flex flex-wrap gap-2 mb-5">
+                    {props.technologies.map((tech: string, i: number) => (
+                        <span key={i} className="text-xs font-mono px-2.5 py-1 rounded-lg border border-[#38BDF825] bg-[#38BDF808] text-primaryColor">
+                            {tech}
+                        </span>
+                    ))}
                 </div>
-                <Text className="!text-justify !text-lg sm-mx:!text-base xs-mx:!text-xs"  c="dimmed">
+
+                {/* Bullet points */}
+                {props.points?.length > 0 && (
+                    <ul className="flex flex-col gap-2.5 mb-5">
+                        {props.points.map((point: string, i: number) => (
+                            <li key={i} className="flex items-start gap-3 text-sm text-textColor leading-relaxed">
+                                <span className="w-1.5 h-1.5 rounded-full bg-primaryColor flex-shrink-0 mt-[7px]" />
+                                <span>{point}</span>
+                            </li>
+                        ))}
+                    </ul>
+                )}
+
+                {/* Summary paragraph */}
+                <p className="text-textColor/70 text-xs leading-[1.85] border-t border-[#38BDF810] pt-4">
                     {props.desc}
-                </Text>
-                <Group justify="space-between" mt="md" mb={3} >
-                    <a href={props.github} target="_blank" className="!w-[48%] sm-mx:!w-[46%]"><Button variant="outline" size={btn} color="#64FFDA" fullWidth  radius="md">
+                </p>
+
+                {/* Action buttons */}
+                <div className="flex gap-3 mt-6">
+                    <a href={props.github} target="_blank" rel="noreferrer"
+                        className={`flex items-center justify-center gap-2 py-2.5 rounded-lg border border-[#38BDF830] text-primaryColor text-sm font-medium font-space hover:bg-[#38BDF810] hover:border-primaryColor/60 transition-all duration-200 ${props.live ? "flex-1" : "w-full"}`}>
+                        <IconBrandGithub size={16} />
                         View Code
-                    </Button>
                     </a>
-                    <a href={props.link} target="_blank" className="!w-[48%] "><Button size={btn} color="#64FFDA" className="!text-bgColor" fullWidth radius="md">
-                        View Live App
-                    </Button></a>
-                </Group>
+                    {props.live ? (
+                        <a href={props.link} target="_blank" rel="noreferrer"
+                            className="flex-1 flex items-center justify-center gap-2 py-2.5 rounded-lg bg-gradient-to-r from-primaryColor to-accentColor text-bgColor text-sm font-semibold font-space hover:opacity-90 transition-all duration-200">
+                            <IconExternalLink size={16} />
+                            Live App
+                        </a>
+                    ) : (
+                        <div className="flex-1 flex items-center justify-center gap-2 py-2.5 rounded-lg border border-[#38BDF818] text-textColor text-sm font-medium font-space cursor-default select-none">
+                            <IconLock size={15} />
+                            Private / NDA
+                        </div>
+                    )}
+                </div>
             </Modal.Body>
         </Modal.Content>
     </Modal.Root>
+);
 
-}
 export default FullProjectModal;

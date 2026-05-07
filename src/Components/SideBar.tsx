@@ -1,27 +1,36 @@
 import { useDisclosure } from '@mantine/hooks';
-import { Drawer, Burger, useMatches } from '@mantine/core';
+import { Drawer, Burger } from '@mantine/core';
 import { navLinks } from './Header';
 
-const SideBar=()=> {
-  const [opened, { toggle }] = useDisclosure(false);
-  const size=useMatches({
-   xs:'md',
-   sm:'lg'
-});
+const SideBar = ({ activeSection }: { activeSection?: string }) => {
+    const [opened, { toggle }] = useDisclosure(false);
 
-  return (
-    <>
-      <Drawer.Root  className='bs:hidden !-z-10'  position='right' opened={opened}   onClose={toggle} size="50vw" >
-        <Drawer.Overlay className='!-z-0 !backdrop-opacity-85 blur-sm' />
-        <Drawer.Content className='!-z-0' bg="#112240">
-          <Drawer.Body className='mt-20 xs:mt-24  flex flex-col gap-5' bg="#112240">
-            {navLinks(true, toggle)}
-          </Drawer.Body>
-        </Drawer.Content>
-      </Drawer.Root>
+    return (
+        <>
+            <Drawer.Root
+                className="bs:hidden"
+                position="right"
+                opened={opened}
+                onClose={toggle}
+                size="60vw"
+            >
+                <Drawer.Overlay className="!backdrop-opacity-80 blur-sm" />
+                <Drawer.Content className="!border-l !border-[#38BDF815]" bg="#0F172A">
+                    <Drawer.Body className="mt-20 flex flex-col gap-6" bg="#0F172A">
+                        {navLinks(true, toggle, activeSection)}
+                    </Drawer.Body>
+                </Drawer.Content>
+            </Drawer.Root>
 
-      <Burger className='bs:!hidden !z-50 relative' size={size} color='#64FFDA' opened={opened} onClick={toggle}  />
-    </>
-  );
-}
+            <Burger
+                className="bs:!hidden !z-50 relative"
+                size="sm"
+                color="#38BDF8"
+                opened={opened}
+                onClick={toggle}
+            />
+        </>
+    );
+};
+
 export default SideBar;

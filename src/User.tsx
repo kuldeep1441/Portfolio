@@ -1,123 +1,188 @@
-import { IconBrandGithub, IconBrandInstagram, IconBrandLeetcode, IconBrandLinkedin, IconBrandYoutube , IconCode, IconTerminal} from "@tabler/icons-react";
-const Info = {
-    name: "Kuldeep",
-    stack: ["Software Engineer", "Full Stack Developer"],
-    bio: `Passionate software engineer dedicated to building efficient, scalable, and impactful web applications. I thrive on solving complex problems, taking full ownership of tasks, and delivering high-quality digital experiences. Let’s connect and build something extraordinary together!`
-}
+import { IconBrandGithub, IconBrandLeetcode, IconBrandLinkedin, IconCode, IconTerminal } from "@tabler/icons-react";
 
+/* ─────────────────────────────────────────────────────────
+   localStorage override — written by /upload page AI parse.
+   On every page load User.tsx checks for a stored override
+   and merges it so the whole portfolio updates automatically.
+───────────────────────────────────────────────────────── */
+const _override = (() => {
+    try { return JSON.parse(localStorage.getItem("portfolio_data_override") || "null"); }
+    catch { return null; }
+})();
 
+/* ── Utility: calculate duration between two dates ─────── */
+export const calcDuration = (startDate: string, endDate?: string | null): string => {
+    const start = new Date(startDate);
+    const end   = endDate ? new Date(endDate) : new Date();
+    const total = (end.getFullYear() - start.getFullYear()) * 12 + (end.getMonth() - start.getMonth());
+    const yrs   = Math.floor(total / 12);
+    const mos   = total % 12;
+    if (yrs === 0) return `${mos} mo`;
+    if (mos === 0) return `${yrs} yr${yrs > 1 ? "s" : ""}`;
+    return `${yrs} yr${yrs > 1 ? "s" : ""} ${mos} mo`;
+};
 
-const ProjectInfo = [
+/* ── Utility: total professional experience ─────────────── */
+export const getTotalExperienceYears = (): number => {
+    const start = new Date(Info.experienceStartDate);
+    const now   = new Date();
+    const mos   = (now.getFullYear() - start.getFullYear()) * 12 + (now.getMonth() - start.getMonth());
+    return parseFloat((mos / 12).toFixed(1));
+};
+
+/* ════════════════════════════════════════════════════════
+   CORE INFO
+════════════════════════════════════════════════════════ */
+const _Info = {
+    name: "Kuldeep Tanwar",
+    /** Set to when your professional career started for auto-updating year counter */
+    experienceStartDate: "2023-09-01",
+    stack: ["Full-Stack Engineer", "Backend Developer", "Cloud & DevOps Engineer"],
+    bio: `Full-stack Engineer with 2.7 years building scalable, production-grade systems in Next.js, NestJS, FastAPI, and cloud-native AWS environments. Skilled in backend optimization, Redis caching, async architecture, and system design. Experienced in AI-integrated development using Claude API, OpenAI APIs, and LLM pipelines to automate workflows at scale.`,
+};
+const Info = _override?.info || _Info;
+
+/* ════════════════════════════════════════════════════════
+   PROJECTS
+════════════════════════════════════════════════════════ */
+const _ProjectInfo = [
     {
-        title: "BookShoppe E-comm App",
-        desc: "BookShoppe is a modern, fully responsive e-commerce platform built using React, Vite, TailwindCSS, Redux, and MaterialUI, offering a seamless shopping experience across different book categories. It features secure user authentication with login, registration, and logout functionalities. Users can add items to a cart or remove them, search for specific products and purchase them. The checkout process includes form validation for address and payment information, ensuring accuracy and security. After purchase, users can view their order history in the Orders section. BookShoppe combines robust functionality, intuitive design, making online Book shopping effortless and enjoyable.",
+        title: "Narriva",
+        desc: "AI-driven social media automation platform for Indian SMBs powered by event-driven async pipelines, Meta Graph API, and multi-tenant FastAPI services with real-time webhook processing.",
+        points: [
+            "Architected event-driven async pipelines on Celery + Redis for trend detection, scheduling, lead capture, and WhatsApp alerts",
+            "Implemented Meta Graph API for Instagram/Facebook OAuth, media publishing, real-time webhooks, and analytics",
+            "Engineered multi-tenant FastAPI services with PostgreSQL, JWT auth, and rate-limited request handling at scale on AWS",
+            "Built AI-generated posts with captions and hashtags, auto-replies across Instagram, Facebook & WhatsApp",
+            "Integrated intelligent lead scoring and daily trend alerts via Claude API pipelines",
+        ],
+        image: "Narriva.png",
+        live: true,
+        technologies: ["FastAPI", "PostgreSQL", "Redis", "Celery", "AWS", "Claude API"],
+        link: "https://narriva.in/",
+        github: "https://github.com/kuldeep1441",
+    },
+    {
+        title: "DigiCampus LMS",
+        desc: "Production Learning Management System powering 138+ daily active students with 8k-12k monthly user hours, optimised for performance, AI content detection, and offline-first PWA access.",
+        points: [
+            "Powers 138+ daily active students and 8k-12k monthly user hours of continuous learning",
+            "Cut API latency 50-60% via Redis caching, concurrent async processing, and strategic MongoDB indexing",
+            "Integrated GPTZero AI APIs to detect AI-generated content in student assessment submissions",
+            "Converted platform to PWA with offline access, install support, and push-notification engagement",
+            "Optimised React with memoization, code-splitting, lazy loading, and AbortController request cancellation",
+        ],
+        image: "DigiCampus.png",
+        live: false,
+        technologies: ["Next.js", "NestJS", "TypeScript", "MongoDB", "AWS", "Redis"],
+        link: "https://github.com/kuldeep1441",
+        github: "https://github.com/kuldeep1441",
+    },
+    {
+        title: "BookShoppe",
+        desc: "Modern, fully responsive e-commerce platform for books with secure auth, cart management, product search, and validated checkout — built with React, Vite, Tailwind, Redux, and Material UI.",
+        points: [
+            "Fully responsive e-commerce built with React, Vite, Tailwind CSS, Redux, and Material UI",
+            "Secure user authentication with login, registration, and session management",
+            "Cart management, real-time product search, and validated multi-step checkout flow",
+            "Order history tracking with persistent state across book categories",
+        ],
         image: "BookShoppe.png",
         live: true,
-        technologies: ["MERN", "Vite", "Tailwind", "Redux"],
+        technologies: ["React", "Vite", "Tailwind", "Redux", "Material UI"],
         link: "https://book-shoppe.vercel.app/",
-        github: "https://github.com/kuldeep1441/BookShoppe.git"
+        github: "https://github.com/kuldeep1441/BookShoppe.git",
     },
-    {
-        title: "ApnaGPT",
-        desc: "ApnaGPT is an advanced MERN stack application integrated with OpenAI's API to deliver intelligent features like text summarization, chatbot interactions, JavaScript code generation, and text-to-image conversion. The platform supports secure user authentication, ensuring privacy and data protection. Users can interact with a responsive chatbot, generate sci-fi images, or receive JavaScript code suggestions. The application showcases the powerful combination of AI and web development, providing users with a dynamic and engaging experience..",
-        image: "ApnaGPT.png",
-        live: false,
-        technologies: ["MERN", "OpenAI", "Bootstrap", "Redux"],
-        link: "https://github.com/kuldeep1441/ApnaGPT.git",
-        github: "https://github.com/kuldeep1441/ApnaGPT.git"
-    },
-    {
-        title: "Portfolio",
-        desc: "The Portfolio Website is a personal project developed using Typescript, React, and Tailwind, and is deployed on Vercel. It features a clean, intuitive design with sections dedicated to About, Home, and Projects, allowing easy navigation. The Contact Us section is integrated to enable visitor interaction, with MongoDB handling the efficient storage and management of visitor details. This portfolio highlights technical skills, project experiences, and provides a seamless way for potential employers and collaborators to connect.",
-        image: "Portfolio.png",
-        live: false,
-        technologies: ["React", "Typescript", "Tailwind"],
-        link: "https://portfolio-tau-brown-41.vercel.app/",
-        github: "https://github.com/kuldeep1441/Portfolio.git"
-    },
-]
+];
+const ProjectInfo = _override?.projectInfo || _ProjectInfo;
 
-
-const SkillInfo = [
+/* ════════════════════════════════════════════════════════
+   SKILLS
+════════════════════════════════════════════════════════ */
+const _SkillInfo = [
     {
         title: "Frontend",
-        skills: ["HTML", "CSS", "JavaScript", "TypeScript", "React JS", "Next JS", "Tailwind CSS", "Material UI", "Bootstrap"
-        ]
+        skills: ["React.js", "Next.js", "TypeScript", "Redux", "Tailwind CSS", "Material UI", "HTML5", "PWA", "Storybook"],
     },
     {
         title: "Backend",
-        skills: [ "Node JS", "Express JS", "MongoDB", "MySQL", "NestJS"]
+        skills: ["Node.js", "NestJS", "Express.js", "FastAPI", "REST APIs", "Microservices", "WebSockets"],
+    },
+    {
+        title: "Databases & Caching",
+        skills: ["MongoDB", "PostgreSQL", "MySQL", "Redis", "BullMQ", "Celery"],
+    },
+    {
+        title: "Cloud & DevOps",
+        skills: ["AWS (S3, ECS, Lambda, RDS, SQS)", "Docker", "Nginx", "CI/CD", "Vercel", "Sentry", "PostHog", "k6"],
+    },
+    {
+        title: "AI & Integrations",
+        skills: ["Claude API", "OpenAI APIs", "GPTZero", "LLM Pipelines", "Meta Graph API", "Webhooks"],
     },
     {
         title: "Languages",
-        skills: ["C", "C++", "HTML", "Sql", "Python", "JavaScript", "TypeScript"]
+        skills: ["TypeScript", "JavaScript (ES6+)", "Python", "C++", "SQL"],
     },
-    {
-        title: "Tools",
-        skills: ["Git", "Github", "VS Code", "Postman", "MongoDB Compass", "Vite"]
-    }
-]
-const socialLinks = [
-    { link: "https://github.com/kuldeep1441", icon: IconBrandGithub },
-    { link: "https://www.linkedin.com/in/kuldeep-tanwar-61b748237/", icon: IconBrandLinkedin },
-    { link: "https://leetcode.com/u/kuldeep_kd/", icon: IconBrandLeetcode },
-    { link: "https://www.geeksforgeeks.org/user/kuldeep1441/", icon: IconCode }, 
-    { link: "https://www.interviewbit.com/profile/kuldeep_kd/", icon: IconTerminal }
 ];
+const SkillInfo = _override?.skillInfo || _SkillInfo;
 
-
-const ExperienceInfo = [
+/* ════════════════════════════════════════════════════════
+   EXPERIENCE
+════════════════════════════════════════════════════════ */
+const _ExperienceInfo = [
     {
         role: "Software Development Engineer",
         company: "Digiaccel Learning (Altera Institute)",
+        startDate: "2024-11-01",
+        endDate: null,          // null = "Present"
         date: "Nov 2024 - Present",
-        desc: "Full-stack engineer with proven expertise in building scalable web platforms and robust automation frameworks. Demonstrated full ownership of projects like DigiCampus and program-application management systems, optimizing workflows and enhancing user experience.",
-        skills: ["Javascript", "Typescript", "Next Js", "Node Js", "Nest Js", "and cross-functional collaboration to ensure high-performance delivery across B2B and B2C products"]
+        points: [
+            "Built Grafana/Prometheus observability dashboard with AWS Lambda-driven staging shutdown, reducing infrastructure costs by 12.5%",
+            "Reduced API response times by 50-60% via Redis caching, concurrent async processing, query optimisation, and request batching",
+            "Established scaling baselines through k6 load tests on AWS ECS Fargate to benchmark concurrent user capacity",
+            "Integrated Sentry for error tracking and PostHog for product analytics, cutting MTTR to ~1 hour",
+            "Implemented secure direct-to-AWS S3 uploads via pre-signed URLs, improving upload latency by ~30%",
+            "Converted platform to PWA with offline access and integrated GPTZero for AI content detection in assessments",
+        ],
+        skills: ["Next.js", "NestJS", "TypeScript", "MongoDB", "AWS", "Redis", "Sentry", "PostHog"],
     },
     {
-        role: "Software Developer Intern",
+        role: "Junior Software Engineer",
         company: "Vilihi Virtual Services",
-        date: "January 2024 - June 2024",
-        desc: "I worked on the development of Mult-Vendor E-commerce website using  MERN, Redux, and Tailwind, creating scalable microservices and interfaces. I optimized performance by integrating frontend and backend, and enhanced security with RESTful APIs. Collaborating in teams, I fostered innovation and efficiency for top-quality solutions.",
-        skills: ["MongoDB", "Express", "React JS", "Node JS", "Redux", "Tailwind Css"]
+        startDate: "2023-12-01",
+        endDate: "2024-11-30",
+        date: "Dec 2023 - Nov 2024",
+        points: [
+            "Published a shared TypeScript Enums NPM package unifying frontend and backend contracts, cutting type-related defects by ~20%",
+            "Configured Storybook for isolated React component development, accelerating UI iteration and design QA cycles",
+            "Designed Node.js + Express REST APIs with MongoDB schemas, JWT auth, and Zod validation powering core backend workflows",
+        ],
+        skills: ["MERN Stack", "TypeScript", "Redux", "Storybook", "MongoDB", "JWT", "Zod"],
     },
-]
-const Slugs = [
-    "typescript",
-    "spring",
-    "javascript",
-    "dart",
-    "java",
-    "react",
-    "angular",
-    "flutter",
-    "android",
-    "html5",
-    "css3",
-    "springboot",
-    "mongodb",
-    "selenium",
-    "nodedotjs",
-    "express",
-    "nextdotjs",
-    "prisma",
-    "mysql",
-    "amazonaws",
-    "postgresql",
-    "firebase",
-    "nginx",
-    "vercel",
-    "testinglibrary",
-    "jest",
-    "cypress",
-    "docker",
-    "git",
-    "jira",
-    "github",
-    "gitlab",
-    "visualstudiocode",
-    "androidstudio",
-    "sonarqube",
-    "figma",
 ];
-export { Info, ProjectInfo,socialLinks, SkillInfo, ExperienceInfo, Slugs };
+const ExperienceInfo = _override?.experienceInfo || _ExperienceInfo;
+
+/* ════════════════════════════════════════════════════════
+   SOCIAL & ICON CLOUD
+════════════════════════════════════════════════════════ */
+const socialLinks = [
+    { link: "https://github.com/kuldeep1441", icon: IconBrandGithub },
+    { link: "https://www.linkedin.com/in/kuldeep-tanwar-61b748237/", icon: IconBrandLinkedin },
+    { link: "https://leetcode.com/u/kuldeep1441/", icon: IconBrandLeetcode },
+    { link: "https://www.geeksforgeeks.org/user/kuldeep1441/", icon: IconCode },
+    { link: "https://www.interviewbit.com/profile/kuldeep1441/", icon: IconTerminal },
+];
+
+const Slugs = [
+    "typescript", "javascript", "python",
+    "react", "nextdotjs", "nodedotjs",
+    "nestjs", "express", "fastapi",
+    "html5", "css3",
+    "mongodb", "postgresql", "mysql", "redis",
+    "amazonaws", "docker", "nginx", "vercel",
+    "tailwindcss", "mui", "redux",
+    "storybook", "git", "github", "openai",
+];
+
+export { Info, ProjectInfo, socialLinks, SkillInfo, ExperienceInfo, Slugs };
