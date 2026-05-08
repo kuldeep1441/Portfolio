@@ -39,7 +39,7 @@ const Skills = () => {
                 className="flex items-center gap-4 mb-12"
             >
                 <div className="flex items-center gap-3">
-                    <span className="text-primaryColor font-mono text-sm tracking-widest">03.</span>
+                    <span className="text-primaryColor font-mono text-sm tracking-widest">04.</span>
                     <h2 className="text-3xl sm-mx:text-2xl xs-mx:text-xl font-bold font-space text-white">Skills</h2>
                 </div>
                 <div className="flex-1 h-px bg-gradient-to-r from-[#38BDF820] to-transparent" />

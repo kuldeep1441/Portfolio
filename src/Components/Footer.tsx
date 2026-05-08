@@ -22,7 +22,7 @@ const Footer = () => (
                 {Info.name}
             </div>
             <div className="text-textColor text-xs tracking-widest uppercase">
-                building things for the web
+                building things for web and mobile apps
             </div>
         </motion.div>
 

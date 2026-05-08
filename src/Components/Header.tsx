@@ -1,20 +1,21 @@
 import SideBar from "./SideBar";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
-const links = ["About", "Experience", "Skills", "Projects", "Contact"];
+const links = ["About", "Experience", "Education", "Skills", "Projects", "Contact"];
+
+const scrollTo = (id: string) =>
+    document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
 
 export const navLinks = (
     col: boolean,
     clicked: (() => void) | null,
     activeSection?: string
-) => {
-    const handleClick = () => { if (clicked) clicked(); };
-    return links.map((link, index) => (
-        <a
+) =>
+    links.map((link, index) => (
+        <button
             key={index}
-            onClick={handleClick}
-            href={`#${link}`}
-            className={`${col ? "flex flex-col items-center" : ""} relative text-sm font-space font-medium tracking-wide transition-colors duration-200 group ${
+            onClick={() => { if (clicked) clicked(); scrollTo(link); }}
+            className={`${col ? "flex flex-col items-center" : ""} relative text-sm font-space font-medium tracking-wide transition-colors duration-200 group bg-transparent border-none p-0 cursor-pointer ${
                 activeSection === link
                     ? "text-primaryColor"
                     : "text-textColor hover:text-primaryColor"
@@ -31,12 +32,15 @@ export const navLinks = (
                     activeSection === link ? "w-full" : "w-0 group-hover:w-full"
                 }`}
             />
-        </a>
+        </button>
     ));
-};
 
 const Logo = () => (
-    <a href="#About" className="flex justify-center items-center cursor-pointer group">
+    <button
+        onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+        aria-label="Back to top"
+        className="flex justify-center items-center cursor-pointer group bg-transparent border-none p-0"
+    >
         <div className="relative flex items-center justify-center">
             <svg className="w-11 h-13 xs-mx:w-9 xs-mx:h-11" viewBox="0 0 100 115" fill="none">
                 <polygon
@@ -51,27 +55,19 @@ const Logo = () => (
                 KT
             </span>
         </div>
-    </a>
+    </button>
 );
 
 const Header = () => {
-    const [show, setShow] = useState(true);
     const [scrolled, setScrolled] = useState(false);
     const [activeSection, setActiveSection] = useState("About");
-    const lastScrollY = useRef(0);
 
-    const controlNavbar = useCallback(() => {
-        const current = window.scrollY;
-        if (current > lastScrollY.current && current > 70) setShow(false);
-        else setShow(true);
-        setScrolled(current > 40);
-        lastScrollY.current = current;
-    }, []);
+    const onScroll = useCallback(() => setScrolled(window.scrollY > 40), []);
 
     useEffect(() => {
-        window.addEventListener("scroll", controlNavbar, { passive: true });
-        return () => window.removeEventListener("scroll", controlNavbar);
-    }, [controlNavbar]);
+        window.addEventListener("scroll", onScroll, { passive: true });
+        return () => window.removeEventListener("scroll", onScroll);
+    }, [onScroll]);
 
     useEffect(() => {
         const observer = new IntersectionObserver(
@@ -91,10 +87,10 @@ const Header = () => {
 
     return (
         <nav
-            className={`flex ${show ? "translate-y-0" : "-translate-y-28"} transition-transform duration-500 ease-in-out fixed w-full z-50 h-20 xs-mx:h-16 px-10 xs-mx:px-4 justify-between items-center ${
+            className={`flex fixed w-full z-50 h-20 xs-mx:h-16 px-10 xs-mx:px-4 justify-between items-center border-b transition-[background-color,border-color,box-shadow,backdrop-filter] duration-300 ${
                 scrolled
-                    ? "bg-[#0F172A]/90 backdrop-blur-xl border-b border-[#38BDF810] shadow-[0_4px_30px_0_#00000040]"
-                    : "bg-transparent"
+                    ? "bg-[#0F172A]/90 backdrop-blur-xl border-[#38BDF810] shadow-[0_4px_30px_0_#00000040]"
+                    : "bg-transparent border-transparent"
             }`}
         >
             <Logo />

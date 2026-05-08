@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import About from "./About";
 import Contact from "./Contact";
+import Education from "./Education";
 import Experience from "./Experience";
 import Footer from "./Footer";
 import Header from "./Header";
@@ -138,6 +139,7 @@ const HomePage = () => {
             <main className="max-w-[1400px] mx-auto">
                 <About />
                 <Experience />
+                <Education />
                 <Skills />
                 <Projects />
                 <Contact />

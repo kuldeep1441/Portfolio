@@ -28,7 +28,12 @@ const Experience = () => {
             </motion.div>
 
             <div ref={ref} className="relative">
-                <div className="absolute left-5 top-0 bottom-0 w-px bg-gradient-to-b from-primaryColor/30 via-accentColor/20 to-transparent md-mx:left-4" />
+                {/*
+                  Line at left-6 = 24px.
+                  Dot w-5 (20px) at left-[14px] → center = 14+10 = 24px ✓
+                  md: line left-5 = 20px, dot left-[10px] → center = 10+10 = 20px ✓
+                */}
+                <div className="absolute left-6 md-mx:left-5 top-0 bottom-0 w-px bg-gradient-to-b from-primaryColor/30 via-accentColor/20 to-transparent" />
 
                 <div className="flex flex-col gap-8">
                     {ExperienceInfo.map((exp: any, index: number) => (
@@ -38,10 +43,10 @@ const Experience = () => {
                             initial="hidden"
                             animate={inView ? "show" : "hidden"}
                             variants={item}
-                            className="relative pl-16 md-mx:pl-12 group"
+                            className="relative pl-16 md-mx:pl-14 group"
                         >
-                            {/* Timeline dot */}
-                            <div className="absolute left-[13px] top-6 w-5 h-5 md-mx:left-[9px] rounded-full border-2 border-primaryColor bg-bgColor flex items-center justify-center transition-all duration-300 group-hover:scale-110 group-hover:shadow-[0_0_12px_0_#38BDF860]">
+                            {/* Timeline dot — precisely centered on the line */}
+                            <div className="absolute left-[14px] md-mx:left-[10px] top-6 w-5 h-5 rounded-full border-2 border-primaryColor bg-bgColor flex items-center justify-center transition-all duration-300 group-hover:scale-110 group-hover:shadow-[0_0_12px_0_#38BDF860] z-10">
                                 <div className="w-2 h-2 rounded-full bg-primaryColor" />
                             </div>
 
@@ -53,14 +58,17 @@ const Experience = () => {
 
                                 {/* Header */}
                                 <div className="flex items-start gap-4 mb-5">
-                                    <div className="w-12 h-12 rounded-xl border border-[#38BDF820] bg-white flex items-center justify-center flex-shrink-0 overflow-hidden sm-mx:w-10 sm-mx:h-10">
+                                    <div className="flex-shrink-0 w-12 h-12 sm-mx:w-10 sm-mx:h-10
+                                        rounded-xl border border-[#38BDF820] bg-white
+                                        flex items-center justify-center overflow-hidden">
                                         <img
                                             src={`${process.env.PUBLIC_URL}/${exp.company}.png`}
                                             alt={exp.company}
-                                            className="w-full h-full object-contain p-1"
+                                            className="w-full h-full object-contain"
                                             onError={(e) => { (e.target as HTMLImageElement).style.display = "none"; }}
                                         />
                                     </div>
+
                                     <div className="flex-1 min-w-0">
                                         <h3 className="text-white text-xl font-semibold font-space sm-mx:text-lg xs-mx:text-base leading-tight">
                                             {exp.role}
@@ -70,7 +78,6 @@ const Experience = () => {
                                             <span className="text-textColor text-xs">·</span>
                                             <span className="text-textColor text-xs font-mono">{exp.date}</span>
                                             <span className="text-textColor text-xs">·</span>
-                                            {/* Auto-updating duration */}
                                             <span className="text-accentColor text-xs font-mono font-semibold">
                                                 {calcDuration(exp.startDate, exp.endDate)}
                                             </span>

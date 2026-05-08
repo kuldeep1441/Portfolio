@@ -24,25 +24,24 @@ const Projects = () => {
                 className="flex items-center gap-4 mb-12"
             >
                 <div className="flex items-center gap-3">
-                    <span className="text-primaryColor font-mono text-sm tracking-widest">04.</span>
+                    <span className="text-primaryColor font-mono text-sm tracking-widest">05.</span>
                     <h2 className="text-3xl sm-mx:text-2xl xs-mx:text-xl font-bold font-space text-white">Projects</h2>
                 </div>
                 <div className="flex-1 h-px bg-gradient-to-r from-[#38BDF820] to-transparent" />
             </motion.div>
 
-            {/* All 3 projects in equal-width row */}
             <motion.div
                 ref={ref}
                 variants={container}
                 initial="hidden"
                 animate={inView ? "show" : "hidden"}
-                className="flex flex-wrap justify-around md-mx:justify-between sm-mx:justify-center gap-6 md-mx:gap-4"
+                className="grid grid-cols-3 lg-mx:grid-cols-2 sm-mx:grid-cols-1 gap-6 md-mx:gap-4 items-stretch"
             >
                 {ProjectInfo.map((project: any, index: number) => (
                     <motion.div
                         key={index}
                         variants={item}
-                        className="w-[32%] lg-mx:w-[46%] md-mx:w-[48%] sm-mx:w-[90%] xs-mx:w-full"
+                        className="flex flex-col"
                     >
                         <ProjectCard
                             title={project.title}

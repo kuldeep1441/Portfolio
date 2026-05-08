@@ -14,7 +14,7 @@ const _override = (() => {
 export const calcDuration = (startDate: string, endDate?: string | null): string => {
     const start = new Date(startDate);
     const end   = endDate ? new Date(endDate) : new Date();
-    const total = (end.getFullYear() - start.getFullYear()) * 12 + (end.getMonth() - start.getMonth());
+    const total = (end.getFullYear() - start.getFullYear()) * 12 + (end.getMonth() - start.getMonth()) + 1;
     const yrs   = Math.floor(total / 12);
     const mos   = total % 12;
     if (yrs === 0) return `${mos} mo`;
@@ -47,7 +47,7 @@ const Info = _override?.info || _Info;
 ════════════════════════════════════════════════════════ */
 const _ProjectInfo = [
     {
-        title: "Narriva",
+        title: "Narriva App",
         desc: "AI-driven social media automation platform for Indian SMBs powered by event-driven async pipelines, Meta Graph API, and multi-tenant FastAPI services with real-time webhook processing.",
         points: [
             "Architected event-driven async pipelines on Celery + Redis for trend detection, scheduling, lead capture, and WhatsApp alerts",
@@ -164,11 +164,46 @@ const _ExperienceInfo = [
 const ExperienceInfo = _override?.experienceInfo || _ExperienceInfo;
 
 /* ════════════════════════════════════════════════════════
+   EDUCATION
+════════════════════════════════════════════════════════ */
+const _EducationInfo = [
+    {
+        type: "degree",
+        degree: "B.Tech — Computer Science & Engineering",
+        institution: "NIT Kurukshetra",
+        grade: "7.8 CGPA",
+        date: "2019 – 2023",
+        location: "Kurukshetra, Haryana, India",
+        image: "nit-kurukshetra.png",
+        badge: "Govt. Premier Institute",
+    },
+    {
+        type: "class12",
+        degree: "Class XII — Science (PCM)",
+        institution: "Yaduvanshi Shiksha Niketan",   // ← update
+        grade: "93.2%",                       // ← update
+        date: "2020",
+        board: "CBSE",
+        location: "Mahendragarh, Haryana, India",
+    },
+    {
+        type: "class10",
+        degree: "Class X",
+        institution: "Yaduvanshi Shiksha Niketan",   // ← update
+        grade: "88.4%",                       // ← update
+        date: "2018",
+        board: "CBSE",
+        location: "Mahendragarh, Haryana, India",
+    },
+];
+const EducationInfo = _override?.educationInfo || _EducationInfo;
+
+/* ════════════════════════════════════════════════════════
    SOCIAL & ICON CLOUD
 ════════════════════════════════════════════════════════ */
 const socialLinks = [
     { link: "https://github.com/kuldeep1441", icon: IconBrandGithub },
-    { link: "https://www.linkedin.com/in/kuldeep-tanwar-61b748237/", icon: IconBrandLinkedin },
+    { link: "https://www.linkedin.com/in/kuldeep-software-developer/", icon: IconBrandLinkedin },
     { link: "https://leetcode.com/u/kuldeep1441/", icon: IconBrandLeetcode },
     { link: "https://www.geeksforgeeks.org/user/kuldeep1441/", icon: IconCode },
     { link: "https://www.interviewbit.com/profile/kuldeep1441/", icon: IconTerminal },
@@ -185,4 +220,4 @@ const Slugs = [
     "storybook", "git", "github", "openai",
 ];
 
-export { Info, ProjectInfo, socialLinks, SkillInfo, ExperienceInfo, Slugs };
+export { Info, ProjectInfo, socialLinks, SkillInfo, ExperienceInfo, EducationInfo, Slugs };

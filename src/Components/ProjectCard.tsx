@@ -19,6 +19,7 @@ const ProjectCard = (props: any) => {
     return (
         <>
             <Tilt
+                className="h-full"
                 tiltMaxAngleX={7} tiltMaxAngleY={7}
                 glareEnable glareMaxOpacity={0.06} glareColor="#38BDF8"
                 glareBorderRadius="16px" scale={1.01} transitionSpeed={500}

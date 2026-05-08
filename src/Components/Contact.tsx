@@ -1,29 +1,14 @@
-import { useState } from "react";
 import {
     IconMail,
     IconBrandGithub,
     IconBrandLinkedin,
     IconBrandLeetcode,
     IconMapPin,
-    IconSend,
     IconCode,
+    IconTerminal,
+    IconArrowUpRight,
 } from "@tabler/icons-react";
-import { validateForm } from "./Validation";
-import toast from "react-hot-toast";
-import emailjs from "emailjs-com";
-import confetti from "canvas-confetti";
 import { motion } from "framer-motion";
-
-const celebrate = () =>
-    confetti({
-        particleCount: 90,
-        spread: 65,
-        origin: { y: 0.7 },
-        colors: ["#38BDF8", "#14B8A6", "#F1F5F9", "#94A3B8"],
-        scalar: 0.9,
-        gravity: 1.1,
-        ticks: 220,
-    });
 
 const contactItems = [
     {
@@ -35,8 +20,8 @@ const contactItems = [
     {
         icon: IconBrandLinkedin,
         label: "LinkedIn",
-        value: "kuldeep-tanwar-61b748237",
-        href: "https://www.linkedin.com/in/kuldeep-tanwar-61b748237/",
+        value: "/in/kuldeep-software-developer",
+        href: "https://www.linkedin.com/in/kuldeep-software-developer/",
     },
     {
         icon: IconBrandGithub,
@@ -57,184 +42,137 @@ const contactItems = [
         href: "https://www.geeksforgeeks.org/user/kuldeep1441/",
     },
     {
+        icon: IconTerminal,
+        label: "InterviewBit",
+        value: "kuldeep1441",
+        href: "https://www.interviewbit.com/profile/kuldeep1441/",
+    },
+    {
         icon: IconMapPin,
         label: "Location",
-        value: "India · Open to Remote",
+        value: "Gurugram, Haryana, India",
         href: null,
     },
 ];
 
-const InputField = ({
-    id, label, value, error, onChange, multiline = false,
-}: {
-    id: string; label: string; value: string; error: string;
-    onChange: (id: string, val: string) => void; multiline?: boolean;
-}) => {
-    const base =
-        `w-full bg-bgColor border rounded-xl px-4 py-3 text-white text-sm placeholder-[#475569] focus:outline-none transition-all duration-200 font-mono resize-none ` +
-        (error
-            ? "border-red-500/60 focus:border-red-400 focus:shadow-[0_0_0_3px_#ef444420]"
-            : "border-[#38BDF820] focus:border-primaryColor/60 focus:shadow-[0_0_0_3px_#38BDF812]");
+const Contact = () => (
+    <section className="px-16 md-mx:px-8 sm-mx:px-4 mx-20 lg-mx:mx-10 md-mx:mx-0 my-16 mb-28" id="Contact">
+        {/* Section heading */}
+        <motion.div
+            initial={{ opacity: 0, x: -20 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+            className="flex items-center gap-4 mb-12"
+        >
+            <div className="flex items-center gap-3">
+                <span className="text-primaryColor font-mono text-sm tracking-widest">06.</span>
+                <h2 className="text-3xl sm-mx:text-2xl xs-mx:text-xl font-bold font-space text-white">Contact</h2>
+            </div>
+            <div className="flex-1 h-px bg-gradient-to-r from-[#38BDF820] to-transparent" />
+        </motion.div>
 
-    return (
-        <div>
-            {multiline ? (
-                <textarea
-                    id={id}
-                    rows={5}
-                    value={value}
-                    onChange={(e) => onChange(id, e.target.value)}
-                    placeholder={label}
-                    className={base}
-                />
-            ) : (
-                <input
-                    type="text"
-                    id={id}
-                    value={value}
-                    onChange={(e) => onChange(id, e.target.value)}
-                    placeholder={label}
-                    className={base}
-                />
-            )}
-            {error && <p className="text-red-400 text-xs mt-1.5 ml-1 font-mono">{error}</p>}
-        </div>
-    );
-};
+        {/* Single unified card */}
+        <motion.div
+            initial={{ opacity: 0, y: 32 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, ease: [0.25, 0.1, 0.25, 1] }}
+            className="max-w-2xl mx-auto"
+        >
+            <div className="relative rounded-2xl border border-[#38BDF828] bg-gradient-to-br from-cardBg via-[#0F172A] to-bgColor overflow-hidden shadow-[0_0_80px_0_#38BDF808]">
 
-const Contact = () => {
-    const blank = { name: "", email: "", phone: "", message: "" };
-    const [formData, setFormData] = useState<Record<string, string>>(blank);
-    const [formError, setFormError] = useState<Record<string, string>>(blank);
-    const [sending, setSending] = useState(false);
+                {/* Top edge glow */}
+                <div className="absolute top-0 left-1/2 -translate-x-1/2 w-56 h-px bg-gradient-to-r from-transparent via-primaryColor/60 to-transparent" />
 
-    const handleChange = (id: string, value: string) => {
-        setFormData((p) => ({ ...p, [id]: value }));
-        setFormError((p) => ({ ...p, [id]: validateForm(id, value) }));
-    };
+                {/* Ambient corner glow */}
+                <div className="absolute -top-20 -right-20 w-48 h-48 rounded-full bg-primaryColor/5 blur-3xl pointer-events-none" />
+                <div className="absolute -bottom-20 -left-20 w-40 h-40 rounded-full bg-accentColor/5 blur-3xl pointer-events-none" />
 
-    const handleSubmit = async () => {
-        let valid = true;
-        const errors: Record<string, string> = {};
-        for (const key in formData) {
-            const e = validateForm(key, formData[key]);
-            if (e) { errors[key] = e; valid = false; }
-        }
-        setFormError(errors);
-        if (!valid) { toast.error("Please fill all fields correctly."); return; }
+                <div className="relative p-8 sm-mx:p-5">
 
-        setSending(true);
-        emailjs
-            .send("service_1eq6z4k", "template_5e1dnwq",
-                { name: formData.name, email: formData.email, phone: formData.phone, message: formData.message },
-                "_D1BTS65aLdnHE8-A")
-            .then(
-                () => {
-                    celebrate();
-                    toast.success("Message sent! I'll get back to you soon.", { duration: 4000 });
-                    setFormData(blank);
-                },
-                () => toast.error("Send failed — please email directly.", { duration: 4000 })
-            )
-            .finally(() => setSending(false));
-    };
+                    {/* Header */}
+                    <div className="text-center mb-7">
+                        <h3 className="text-2xl font-bold font-space text-white mb-2 tracking-tight">
+                            Get In Touch
+                        </h3>
+                        <p className="text-textColor text-sm leading-relaxed max-w-xs mx-auto">
+                            Open to full-time roles, freelance contracts &amp; interesting collaborations.
+                        </p>
+                    </div>
 
-    return (
-        <section className="px-16 md-mx:px-8 sm-mx:px-4 mx-20 lg-mx:mx-10 md-mx:mx-0 my-16" id="Contact">
-            {/* Section heading */}
-            <motion.div
-                initial={{ opacity: 0, x: -20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5 }}
-                className="flex items-center gap-4 mb-12"
-            >
-                <div className="flex items-center gap-3">
-                    <span className="text-primaryColor font-mono text-sm tracking-widest">05.</span>
-                    <h2 className="text-3xl sm-mx:text-2xl xs-mx:text-xl font-bold font-space text-white">
-                        Contact
-                    </h2>
-                </div>
-                <div className="flex-1 h-px bg-gradient-to-r from-[#38BDF820] to-transparent" />
-            </motion.div>
+                    {/* Divider */}
+                    <div className="h-px bg-gradient-to-r from-transparent via-[#38BDF822] to-transparent mb-6" />
 
-            <motion.div
-                initial={{ opacity: 0, y: 32 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.55, ease: [0.25, 0.1, 0.25, 1] }}
-                className="flex gap-8 lg-mx:flex-col max-w-5xl mx-auto"
-            >
-                {/* ── Left: Info panel ── */}
-                <div className="w-[42%] lg-mx:w-full flex flex-col gap-4">
-                    <div className="border border-[#38BDF818] bg-gradient-to-br from-cardBg to-bgColor rounded-2xl p-7 sm-mx:p-5 flex flex-col gap-6">
-                        <div>
-                            <h3 className="text-xl font-semibold font-space text-white mb-2">
-                                Let's Build Something Great
-                            </h3>
-                            <p className="text-textColor text-sm leading-[1.8]">
-                                Open to full-time roles, freelance contracts, and interesting collaborations. Drop me a message and I'll respond within 24 hours.
-                            </p>
-                        </div>
-
-                        <div className="flex flex-col gap-3">
-                            {contactItems.map((item, i) => (
-                                <div key={i} className="flex items-center gap-3 group">
-                                    <div className="w-8 h-8 rounded-lg border border-[#38BDF820] bg-[#38BDF808] flex items-center justify-center flex-shrink-0 group-hover:border-primaryColor/40 group-hover:bg-[#38BDF812] transition-all duration-200">
-                                        <item.icon size={14} className="text-primaryColor" />
-                                    </div>
-                                    <div>
-                                        <div className="text-[10px] text-textColor uppercase tracking-[0.15em] font-mono">
-                                            {item.label}
+                    {/* Contact rows */}
+                    <div className="flex flex-col gap-2.5 mb-6">
+                        {contactItems.map((item, i) => (
+                            <motion.div
+                                key={i}
+                                initial={{ opacity: 0, x: -12 }}
+                                whileInView={{ opacity: 1, x: 0 }}
+                                viewport={{ once: true }}
+                                transition={{ duration: 0.3, delay: i * 0.05 }}
+                            >
+                                {item.href ? (
+                                    <a
+                                        href={item.href}
+                                        target={item.href.startsWith("http") ? "_blank" : undefined}
+                                        rel="noreferrer"
+                                        className="group flex items-center gap-3 rounded-xl px-4 py-3 border border-transparent hover:border-[#38BDF828] hover:bg-[#38BDF806] transition-all duration-200"
+                                    >
+                                        <div className="w-8 h-8 rounded-lg border border-[#38BDF820] bg-[#38BDF80A] flex items-center justify-center flex-shrink-0 group-hover:border-primaryColor/40 group-hover:bg-[#38BDF815] transition-all duration-200">
+                                            <item.icon size={14} className="text-primaryColor" />
                                         </div>
-                                        {item.href ? (
-                                            <a
-                                                href={item.href}
-                                                target={item.href.startsWith("http") ? "_blank" : undefined}
-                                                rel="noreferrer"
-                                                className="text-xs text-[#CBD5E1] hover:text-primaryColor transition-colors duration-200 break-all"
-                                            >
-                                                {item.value}
-                                            </a>
-                                        ) : (
-                                            <span className="text-xs text-[#CBD5E1]">{item.value}</span>
-                                        )}
+                                        <span className="text-xs font-mono text-textColor w-24 flex-shrink-0 uppercase tracking-widest">
+                                            {item.label}
+                                        </span>
+                                        <span className="text-sm text-[#CBD5E1] group-hover:text-primaryColor transition-colors duration-200 truncate flex-1">
+                                            {item.value}
+                                        </span>
+                                        <IconArrowUpRight size={13} className="text-textColor/20 group-hover:text-primaryColor flex-shrink-0 transition-all duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                                    </a>
+                                ) : (
+                                    <div className="flex items-center gap-3 rounded-xl px-4 py-3">
+                                        <div className="w-8 h-8 rounded-lg border border-[#38BDF818] bg-[#38BDF80A] flex items-center justify-center flex-shrink-0">
+                                            <item.icon size={14} className="text-primaryColor/60" />
+                                        </div>
+                                        <span className="text-xs font-mono text-textColor w-24 flex-shrink-0 uppercase tracking-widest">
+                                            {item.label}
+                                        </span>
+                                        <span className="text-sm text-[#CBD5E1] flex-1">{item.value}</span>
                                     </div>
-                                </div>
-                            ))}
-                        </div>
+                                )}
+                            </motion.div>
+                        ))}
+                    </div>
 
-                        <div className="pt-4 border-t border-[#38BDF810] flex items-center gap-2">
-                            <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse flex-shrink-0" />
-                            <span className="text-xs text-green-400 font-medium font-mono">
+                    {/* Divider */}
+                    <div className="h-px bg-gradient-to-r from-transparent via-[#38BDF822] to-transparent mb-6" />
+
+                    {/* Status + CTA */}
+                    <div className="flex items-center justify-between sm-mx:flex-col sm-mx:gap-4">
+                        <div className="flex items-center gap-2">
+                            <span className="relative flex h-2 w-2">
+                                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-60" />
+                                <span className="relative inline-flex rounded-full h-2 w-2 bg-green-400" />
+                            </span>
+                            <span className="text-sm text-green-400 font-medium font-mono">
                                 Available for new opportunities
                             </span>
                         </div>
-                    </div>
-                </div>
-
-                {/* ── Right: Form ── */}
-                <div className="flex-1 border border-[#38BDF818] bg-gradient-to-br from-cardBg to-bgColor rounded-2xl p-7 sm-mx:p-5">
-                    <h3 className="text-lg font-semibold font-space text-white mb-5">Send a Message</h3>
-                    <div className="flex flex-col gap-4">
-                        <InputField id="name" label="Full Name" value={formData.name} error={formError.name} onChange={handleChange} />
-                        <InputField id="email" label="Email Address" value={formData.email} error={formError.email} onChange={handleChange} />
-                        <InputField id="phone" label="Phone Number" value={formData.phone} error={formError.phone} onChange={handleChange} />
-                        <InputField id="message" label="Your message..." value={formData.message} error={formError.message} onChange={handleChange} multiline />
-
-                        <button
-                            onClick={handleSubmit}
-                            disabled={sending}
-                            className="w-full flex items-center justify-center gap-2 py-3 rounded-xl bg-gradient-to-r from-primaryColor to-accentColor text-bgColor font-semibold font-space text-sm hover:shadow-[0_0_24px_0_#38BDF840] hover:opacity-95 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200"
+                        <a
+                            href="mailto:kuldeepsinghtanwar2001@gmail.com"
+                            className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-primaryColor to-accentColor text-bgColor font-semibold font-space text-sm hover:shadow-[0_0_24px_0_#38BDF845] hover:scale-[1.02] active:scale-[0.98] transition-all duration-200"
                         >
-                            <IconSend size={15} />
-                            {sending ? "Sending…" : "Send Message"}
-                        </button>
+                            <IconMail size={14} />
+                            Send an Email
+                        </a>
                     </div>
                 </div>
-            </motion.div>
-        </section>
-    );
-};
+            </div>
+        </motion.div>
+    </section>
+);
 
 export default Contact;

@@ -44,7 +44,7 @@ const About = () => {
                 <motion.div className="flex items-center gap-2" {...fadeUp(0.1)}>
                     <span className="h-px w-8 bg-primaryColor" />
                     <span className="text-primaryColor text-sm font-mono tracking-[0.2em] uppercase">
-                        Hello, world
+                        Hello
                     </span>
                 </motion.div>
 
