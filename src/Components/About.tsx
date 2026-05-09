@@ -21,7 +21,34 @@ const fadeUp = (delay: number) => ({
     transition: { duration: 0.6, ease: "easeOut" as const, delay },
 });
 
-const s3_Resume_Url = `https://digibucket-dev.s3.ap-south-1.amazonaws.com/Kuldeep_CV.pdf`;
+const S3_RESUME_URL = "https://digibucket-dev.s3.ap-south-1.amazonaws.com/Kuldeep_CV.pdf";
+
+const bundledResumePath = `${(process.env.PUBLIC_URL ?? "").replace(/\/$/, "")}/User_CV.pdf`;
+
+function resolveResumeHref(): string {
+    return S3_RESUME_URL || bundledResumePath;
+}
+
+/** Opens PDF in a new tab and triggers a file download (cross-origin needs CORS on the bucket for fetch). */
+async function openResumePreviewAndDownload(url: string, downloadName: string) {
+    window.open(url, "_blank", "noopener,noreferrer");
+    try {
+        const res = await fetch(url, { mode: "cors" });
+        if (!res.ok) return;
+        const blob = await res.blob();
+        const objectUrl = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = objectUrl;
+        a.download = downloadName;
+        a.rel = "noopener";
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+        URL.revokeObjectURL(objectUrl);
+    } catch {
+        /* S3 must allow GET from your site origin for fetch; preview tab still works */
+    }
+}
 
 const About = () => {
     const { ref: statsRef, inView: statsInView } = useInView({
@@ -119,11 +146,13 @@ const About = () => {
                     className="flex items-center gap-4 sm-mx:flex-col mt-2 bs-mx:w-full"
                 >
                     <a
-                        href={s3_Resume_Url || "User_CV.pdf"}
-                        download={`${Info.name}_CV.pdf`}
-                        target="_blank"
-                        rel="noreferrer"
+                        href={resolveResumeHref()}
                         className="inline-flex items-center justify-center gap-2 px-6 py-2.5 rounded-lg bg-gradient-to-r from-primaryColor to-accentColor text-bgColor font-semibold font-space text-sm hover:shadow-[0_0_28px_0_#38BDF855] hover:scale-[1.02] active:scale-[0.98] transition-all duration-200 sm-mx:w-full"
+                        onClick={(e) => {
+                            if (e.button !== 0 || e.metaKey || e.ctrlKey || e.altKey || e.shiftKey) return;
+                            e.preventDefault();
+                            void openResumePreviewAndDownload(resolveResumeHref(), `${Info.name}_CV.pdf`);
+                        }}
                     >
                         <IconDownload size={16} />
                         Download Resume
