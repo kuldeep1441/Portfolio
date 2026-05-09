@@ -1,9 +1,8 @@
 import { IconBrandGithub, IconBrandLeetcode, IconBrandLinkedin, IconCode, IconTerminal } from "@tabler/icons-react";
 
 /* ─────────────────────────────────────────────────────────
-   localStorage override — written by /upload page AI parse.
-   On every page load User.tsx checks for a stored override
-   and merges it so the whole portfolio updates automatically.
+   Optional localStorage override key `portfolio_data_override`.
+   On load, User.tsx merges it over defaults when valid JSON exists.
 ───────────────────────────────────────────────────────── */
 const _override = (() => {
     try { return JSON.parse(localStorage.getItem("portfolio_data_override") || "null"); }
