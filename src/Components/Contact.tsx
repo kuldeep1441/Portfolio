@@ -1,5 +1,6 @@
 import {
     IconMail,
+    IconPhone,
     IconBrandGithub,
     IconBrandLinkedin,
     IconBrandLeetcode,
@@ -16,6 +17,12 @@ const contactItems = [
         label: "Email",
         value: "kuldeepsinghtanwar2001@gmail.com",
         href: "mailto:kuldeepsinghtanwar2001@gmail.com",
+    },
+    {
+        icon: IconPhone,
+        label: "Phone",
+        value: "+91 85699 58265",
+        href: "tel:+918569958265",
     },
     {
         icon: IconBrandLinkedin,
@@ -124,7 +131,7 @@ const Contact = () => (
                                         <div className="w-8 h-8 rounded-lg border border-[#38BDF820] bg-[#38BDF80A] flex items-center justify-center flex-shrink-0 group-hover:border-primaryColor/40 group-hover:bg-[#38BDF815] transition-all duration-200">
                                             <item.icon size={14} className="text-primaryColor" />
                                         </div>
-                                        <span className="text-xs font-mono text-textColor w-24 flex-shrink-0 uppercase tracking-widest">
+                                        <span className="text-xs font-mono text-textColor w-32 flex-shrink-0 uppercase tracking-widest whitespace-nowrap">
                                             {item.label}
                                         </span>
                                         <span className="text-sm text-[#CBD5E1] group-hover:text-primaryColor transition-colors duration-200 truncate flex-1">
@@ -137,7 +144,7 @@ const Contact = () => (
                                         <div className="w-8 h-8 rounded-lg border border-[#38BDF818] bg-[#38BDF80A] flex items-center justify-center flex-shrink-0">
                                             <item.icon size={14} className="text-primaryColor/60" />
                                         </div>
-                                        <span className="text-xs font-mono text-textColor w-24 flex-shrink-0 uppercase tracking-widest">
+                                        <span className="text-xs font-mono text-textColor w-32 flex-shrink-0 uppercase tracking-widest whitespace-nowrap">
                                             {item.label}
                                         </span>
                                         <span className="text-sm text-[#CBD5E1] flex-1">{item.value}</span>

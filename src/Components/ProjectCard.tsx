@@ -1,7 +1,7 @@
 import { useRef, useState } from "react";
 import { Badge, Indicator } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
-import { IconExternalLink, IconBrandGithub, IconArrowUpRight } from "@tabler/icons-react";
+import { IconExternalLink, IconBrandGithub, IconArrowUpRight, IconBrandGooglePlay } from "@tabler/icons-react";
 import Tilt from "react-parallax-tilt";
 import FullProjectModal from "./FullProjectModal";
 
@@ -50,32 +50,16 @@ const ProjectCard = (props: any) => {
                     </div>
 
                     <div className="p-5 sm-mx:p-4 flex flex-col flex-1">
-                        {/* Title + live + icons */}
-                        <div className="flex items-start justify-between mb-3">
-                            <div>
+                        {/* Title + live */}
+                        <div className="mb-3">
+                            <div className="flex items-center gap-2 flex-wrap">
                                 <h3 className="text-white font-semibold font-space text-lg sm-mx:text-base leading-tight">
                                     {props.title}
                                 </h3>
                                 {props.live && (
-                                    <div className="mt-1">
-                                        <Badge size="xs" variant="outline" color="red"
-                                            rightSection={<Indicator color="red" position="middle-end" size={5} processing />}
-                                            className="!px-1">Live</Badge>
-                                    </div>
-                                )}
-                            </div>
-                            <div className="flex gap-2 relative z-20 flex-shrink-0 ml-2">
-                                <a href={props.github} target="_blank" rel="noreferrer"
-                                    onClick={(e) => e.stopPropagation()}
-                                    className="text-textColor hover:text-primaryColor transition-colors duration-200">
-                                    <IconBrandGithub size={17} />
-                                </a>
-                                {props.live && (
-                                    <a href={props.link} target="_blank" rel="noreferrer"
-                                        onClick={(e) => e.stopPropagation()}
-                                        className="text-textColor hover:text-primaryColor transition-colors duration-200">
-                                        <IconExternalLink size={17} />
-                                    </a>
+                                    <Badge size="xs" variant="outline" color="red"
+                                        rightSection={<Indicator color="red" position="middle-end" size={5} processing />}
+                                        className="!px-1">Live</Badge>
                                 )}
                             </div>
                         </div>
@@ -99,10 +83,39 @@ const ProjectCard = (props: any) => {
                             ))}
                         </ul>
 
-                        {/* Read more */}
-                        <div className="flex items-center gap-1 mt-4 pt-3 border-t border-[#38BDF810] text-xs text-primaryColor font-medium font-space group-hover:gap-2 transition-all duration-200">
-                            <span>View details</span>
-                            <IconArrowUpRight size={14} />
+                        {/* Footer: view details (left) + live action buttons (right) */}
+                        <div className="mt-4 pt-3 border-t border-[#38BDF810] flex items-center justify-between gap-3 flex-wrap">
+                            <div className="flex items-center gap-1 text-xs text-primaryColor font-medium font-space group-hover:gap-2 transition-all duration-200">
+                                <span>View details</span>
+                                <IconArrowUpRight size={14} />
+                            </div>
+
+                            <div className="flex flex-wrap gap-2 relative z-20">
+                                {props.website && (
+                                    <a href={props.website} target="_blank" rel="noreferrer"
+                                        onClick={(e) => e.stopPropagation()}
+                                        className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-gradient-to-r from-primaryColor to-accentColor text-bgColor text-[11px] font-semibold font-space hover:opacity-90 transition-all duration-200">
+                                        <IconExternalLink size={13} />
+                                        Website
+                                    </a>
+                                )}
+                                {props.playStore && (
+                                    <a href={props.playStore} target="_blank" rel="noreferrer"
+                                        onClick={(e) => e.stopPropagation()}
+                                        className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-[#38BDF830] text-primaryColor text-[11px] font-semibold font-space hover:bg-[#38BDF810] hover:border-primaryColor/60 transition-all duration-200">
+                                        <IconBrandGooglePlay size={13} />
+                                        Play Store
+                                    </a>
+                                )}
+                                {props.github && (
+                                    <a href={props.github} target="_blank" rel="noreferrer"
+                                        onClick={(e) => e.stopPropagation()}
+                                        className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-[#38BDF830] text-primaryColor text-[11px] font-semibold font-space hover:bg-[#38BDF810] hover:border-primaryColor/60 transition-all duration-200">
+                                        <IconBrandGithub size={13} />
+                                        Code
+                                    </a>
+                                )}
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -112,7 +125,7 @@ const ProjectCard = (props: any) => {
                 opened={opened} close={close}
                 title={props.title} desc={props.desc} points={props.points}
                 image={props.image} live={props.live}
-                link={props.link} github={props.github}
+                website={props.website} playStore={props.playStore} github={props.github}
                 technologies={props.technologies}
             />
         </>

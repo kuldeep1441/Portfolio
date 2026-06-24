@@ -1,7 +1,7 @@
 import { Info, socialLinks } from "../User";
 import { motion } from "framer-motion";
 
-const techStack = ["React", "TypeScript", "Tailwind CSS", "Framer Motion"];
+const techStack = ["React", "JavaScript", "TypeScript", "Tailwind CSS", "Framer Motion"];
 
 const Footer = () => (
     <footer className="mt-24 pb-10 flex flex-col items-center gap-5 font-mono">

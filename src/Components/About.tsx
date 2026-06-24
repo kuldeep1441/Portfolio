@@ -91,7 +91,7 @@ const About = () => {
                     {...fadeUp(0.3)}
                     className="text-2xl lg-mx:text-xl sm-mx:text-lg xs-mx:text-base text-[#CBD5E1] font-medium flex items-center gap-2 flex-wrap bs-mx:justify-center"
                 >
-                    <span>Building</span>
+                    <span>Working as a</span>
                     <span className="text-primaryColor font-semibold">
                         <Typewriter
                             options={{
@@ -119,7 +119,7 @@ const About = () => {
                     className="grid grid-cols-4 sm-mx:grid-cols-2 gap-x-6 gap-y-4 mt-1 bs-mx:w-full"
                 >
                     {stats.map((stat, i) => (
-                        <div key={i} className="flex flex-col items-center text-center">
+                        <div key={i} className="flex flex-col items-start text-left bs-mx:items-center bs-mx:text-center">
                             <span className="text-2xl sm-mx:text-xl font-bold font-space text-white leading-none">
                                 {statsInView ? (
                                     <CountUp
@@ -218,7 +218,7 @@ const About = () => {
                         className="absolute -bottom-3 -right-3 bg-cardBg border border-[#38BDF830] rounded-xl px-3 py-2 shadow-lg"
                     >
                         <div className="text-xs text-textColor font-mono">Experience</div>
-                        <div className="text-lg font-bold text-primaryColor font-space">2.7 yrs</div>
+                        <div className="text-lg font-bold text-primaryColor font-space">{getTotalExperienceYears()} yrs</div>
                     </motion.div>
 
                     {/* Available badge */}

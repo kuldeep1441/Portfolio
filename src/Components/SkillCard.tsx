@@ -9,6 +9,7 @@ const iconMap: Record<string, IconConfig> = {
     "React.js":                          { url: `${BASE}react/react-original.svg` },
     "Next.js":                           { url: `${BASE}nextjs/nextjs-original.svg`, whiteBg: true },
     "TypeScript":                        { url: `${BASE}typescript/typescript-original.svg` },
+    "JavaScript":                        { url: `${BASE}javascript/javascript-original.svg` },
     "JavaScript (ES6+)":                 { url: `${BASE}javascript/javascript-original.svg` },
     "Redux":                             { url: `${BASE}redux/redux-original.svg` },
     "Tailwind CSS":                      { url: `${BASE}tailwindcss/tailwindcss-original.svg` },

@@ -49,7 +49,8 @@ const Projects = () => {
                             points={project.points}
                             image={project.image}
                             live={project.live}
-                            link={project.link}
+                            website={project.website}
+                            playStore={project.playStore}
                             github={project.github}
                             technologies={project.technologies}
                         />

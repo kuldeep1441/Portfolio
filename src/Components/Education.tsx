@@ -2,6 +2,7 @@ import { EducationInfo } from "../User";
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import { IconSchool, IconMapPin, IconCalendar, IconStar } from "@tabler/icons-react";
+import { useScrollDirection } from "../hooks/useScrollDirection";
 
 const item = {
     hidden: { opacity: 0, x: -24 },
@@ -13,6 +14,8 @@ const item = {
 
 const Education = () => {
     const { ref, inView } = useInView({ triggerOnce: true, threshold: 0.1 });
+    const scrollDir = useScrollDirection();
+    const accentOrigin = scrollDir === "up" ? "origin-bottom" : "origin-top";
 
     return (
         <section className="px-16 mx-20 md-mx:px-6 sm-mx:px-4 lg-mx:mx-0 mt-6 mb-16" id="Education">
@@ -68,7 +71,7 @@ const Education = () => {
                                 }`}>
 
                                     {/* Left accent bar */}
-                                    <div className="absolute left-0 top-4 bottom-4 w-[3px] rounded-r-full bg-gradient-to-b from-primaryColor to-accentColor scale-y-0 group-hover:scale-y-100 transition-transform duration-300 origin-top" />
+                                    <div className={`absolute left-0 top-4 bottom-4 w-[3px] rounded-r-full bg-gradient-to-b from-primaryColor to-accentColor scale-y-0 group-hover:scale-y-100 transition-transform duration-300 ${accentOrigin}`} />
 
                                     {/* Header row */}
                                     <div className="flex items-start gap-3 mb-3">

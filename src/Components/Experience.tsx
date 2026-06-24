@@ -1,6 +1,8 @@
 import { ExperienceInfo, calcDuration } from "../User";
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
+import { IconExternalLink } from "@tabler/icons-react";
+import { useScrollDirection } from "../hooks/useScrollDirection";
 
 const item = {
     hidden: { opacity: 0, x: -24 },
@@ -12,6 +14,8 @@ const item = {
 
 const Experience = () => {
     const { ref, inView } = useInView({ triggerOnce: true, threshold: 0.1 });
+    const scrollDir = useScrollDirection();
+    const accentOrigin = scrollDir === "up" ? "origin-bottom" : "origin-top";
 
     return (
         <section className="px-16 mx-20 md-mx:px-6 sm-mx:px-4 lg-mx:mx-0 mt-6 mb-16" id="Experience">
@@ -54,7 +58,7 @@ const Experience = () => {
                             <div className="relative border border-[#38BDF818] bg-gradient-to-br from-cardBg to-bgColor rounded-2xl p-6 sm-mx:p-4 hover:border-[#38BDF840] hover:-translate-y-0.5 hover:shadow-[0_12px_40px_0_#00000050] transition-all duration-300 overflow-hidden">
 
                                 {/* Left accent bar */}
-                                <div className="absolute left-0 top-4 bottom-4 w-[3px] rounded-r-full bg-gradient-to-b from-primaryColor to-accentColor scale-y-0 group-hover:scale-y-100 transition-transform duration-300 origin-top" />
+                                <div className={`absolute left-0 top-4 bottom-4 w-[3px] rounded-r-full bg-gradient-to-b from-primaryColor to-accentColor scale-y-0 group-hover:scale-y-100 transition-transform duration-300 ${accentOrigin}`} />
 
                                 {/* Header */}
                                 <div className="flex items-start gap-4 mb-5">
@@ -74,13 +78,27 @@ const Experience = () => {
                                             {exp.role}
                                         </h3>
                                         <div className="flex items-center gap-2 mt-0.5 flex-wrap">
-                                            <span className="text-primaryColor text-sm font-medium">{exp.company}</span>
+                                            {exp.link ? (
+                                                <a href={exp.link} target="_blank" rel="noreferrer"
+                                                    className="inline-flex items-center gap-1 text-primaryColor text-sm font-medium hover:text-accentColor transition-colors duration-200">
+                                                    {exp.company}
+                                                    <IconExternalLink size={13} />
+                                                </a>
+                                            ) : (
+                                                <span className="text-primaryColor text-sm font-medium">{exp.company}</span>
+                                            )}
                                             <span className="text-textColor text-xs">·</span>
                                             <span className="text-textColor text-xs font-mono">{exp.date}</span>
                                             <span className="text-textColor text-xs">·</span>
                                             <span className="text-accentColor text-xs font-mono font-semibold">
                                                 {calcDuration(exp.startDate, exp.endDate)}
                                             </span>
+                                            {exp.location && (
+                                                <>
+                                                    <span className="text-textColor text-xs">·</span>
+                                                    <span className="text-textColor text-xs font-mono">{exp.location}</span>
+                                                </>
+                                            )}
                                         </div>
                                     </div>
                                 </div>
